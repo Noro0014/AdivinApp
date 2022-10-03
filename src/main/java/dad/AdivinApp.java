@@ -56,7 +56,7 @@ public class AdivinApp extends Application{
 	}
 	
 	private void clickComprobar(ActionEvent e) {
-		
+		contador++;
 		
 		switch (adivinarNumero()) {
 		case 1:
@@ -71,7 +71,7 @@ public class AdivinApp extends Application{
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Information Dialog");
 			alert.setHeaderText("¡Has ganado!");
-			alert.setContentText("Enhorabuena.");
+			alert.setContentText("Enhorabuena. Lo has conseguido en " + contador + " intentos.");
 			alert.showAndWait();
 			break;
 		case 3:
@@ -79,9 +79,9 @@ public class AdivinApp extends Application{
 			alert2.setTitle("Warning Dialog");
 			alert2.setHeaderText("¡Has fallado!");
 			if (recogerNumero() < numeroAleatorio) {
-				alert2.setContentText("El número que has introducido es menor.");
+				alert2.setContentText("El número que has introducido debe ser mayor.");
 			} else {
-				alert2.setContentText("El número que has introducido es mayor.");
+				alert2.setContentText("El número que has introducido debe ser menor.");
 			}
 				alert2.showAndWait();
 			}
