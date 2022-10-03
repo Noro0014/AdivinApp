@@ -18,6 +18,10 @@ public class AdivinApp extends Application{
 	private Label introduceNumero;
 	private TextField numero;
 	private Button comprobar;
+	Random rd = new Random();
+	
+    int numeroAleatorio = rd.nextInt(100)+1;
+    int contador = 0;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
@@ -33,6 +37,7 @@ public class AdivinApp extends Application{
 		comprobar = new Button("Comprobar");
 		comprobar.setDefaultButton(true);
 		comprobar.setOnAction(e -> clickComprobar(e));
+		
 		
 		//panel
 		VBox rootPanel = new VBox();
@@ -52,36 +57,42 @@ public class AdivinApp extends Application{
 	
 	private void clickComprobar(ActionEvent e) {
 		
-		if (adivinarNumero()==1) {
+		
+		switch (adivinarNumero()) {
+		case 1:
 			Alert alert3 = new Alert(AlertType.ERROR);
 			alert3.setTitle("Error Dialog");
 			alert3.setHeaderText("Error");
 			alert3.setContentText("El número debe estar entre 1 y 100");
 			alert3.showAndWait();
-		} else if (adivinarNumero()==2) {
+			break;
+			
+		case 2:
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Information Dialog");
 			alert.setHeaderText("¡Has ganado!");
 			alert.setContentText("Enhorabuena.");
 			alert.showAndWait();
-		} else {
+			break;
+		case 3:
 			Alert alert2 = new Alert(AlertType.WARNING);
 			alert2.setTitle("Warning Dialog");
 			alert2.setHeaderText("¡Has fallado!");
-			if (recogerNumero() < generarNumeroAleatorio()) {
+			if (recogerNumero() < numeroAleatorio) {
 				alert2.setContentText("El número que has introducido es menor.");
 			} else {
 				alert2.setContentText("El número que has introducido es mayor.");
 			}
 				alert2.showAndWait();
+			}
 		}
-	}
+		
 	
 	private int adivinarNumero () {
 		int error;
-		if (generarNumeroAleatorio()<1||generarNumeroAleatorio()>100) {
+		if (recogerNumero()<1 || recogerNumero()>100) {
 			error = 1;
-		} else if (generarNumeroAleatorio()==recogerNumero()) {
+		} else if (numeroAleatorio==recogerNumero()) {
 			error = 2;
 		} else {
 			error = 3;
@@ -94,11 +105,6 @@ public class AdivinApp extends Application{
 		return dato;	
 	}
 	
-	private int generarNumeroAleatorio () {
-		Random rd = new Random();
-	    int numeroAleatorio = rd.nextInt(101);
-	    return numeroAleatorio;
-	}
 	
 	public static void main (String[] args) {
 		 launch(args);
